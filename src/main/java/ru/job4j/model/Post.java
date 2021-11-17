@@ -18,6 +18,10 @@ public class Post {
     private boolean sold;
 
     @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "brand_id")
+    private Brand brand;
+
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private User user;
 
@@ -28,10 +32,11 @@ public class Post {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Image> images = new HashSet<>();
 
-    public static Post of(String description, User user, Car car) {
+    public static Post of(String description, User user, Brand brand, Car car) {
         Post post = new Post();
         post.description = description;
         post.user = user;
+        post.brand = brand;
         post.car = car;
         post.created = new Date(System.currentTimeMillis());
         post.sold = false;
@@ -96,6 +101,14 @@ public class Post {
 
     public void setImages(Set<Image> images) {
         this.images = images;
+    }
+
+    public Brand getBrand() {
+        return brand;
+    }
+
+    public void setBrand(Brand brand) {
+        this.brand = brand;
     }
 
     @Override

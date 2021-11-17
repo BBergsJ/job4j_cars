@@ -32,3 +32,5 @@ create table if not exists images (
                                       name varchar(200),
                                       post_id int references posts(id)
 );
+
+alter table posts add column brand_id int references brands(id);
